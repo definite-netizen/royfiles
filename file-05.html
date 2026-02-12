@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FILE 05 – SITE CORRELATION REPORT</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0b0b0b;
+            color: #e0e0e0;
+            font-family: "IBM Plex Mono", monospace;
+            padding: 40px;
+        }
+        h1 {
+            color: red;
+            letter-spacing: 2px;
+        }
+        .meta {
+            color: #9a9a9a;
+            font-size: 0.9em;
+        }
+        .divider {
+            margin: 30px 0;
+            border-top: 1px solid #333;
+        }
+        .redacted {
+            background-color: #000;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+
+<h1>FILE 05 – SITE CORRELATION REPORT</h1>
+
+<p class="meta">CASE ID: 050324-E</p>
+<p class="meta">STATUS: RESTRICTED</p>
+<p class="meta">LOCATION CLASSIFICATION: INTERNAL</p>
+
+<div class="divider"></div>
+
+<p>Initial point of origin confirmed.</p>
+<p>Municipality: <span id="municipality">Chula Vista, CA</span></p>
+<p>Street Address: <span id="address" class="redacted">████████████████████████</span></p>
+
+<div class="divider"></div>
+
+<p>Coordinates logged at 14:07 local time.</p>
+<p>Environmental readings within normal limits.</p>
+<p>No structural abnormalities detected.</p>
+
+<div class="divider"></div>
+
+<p>Follow-up visit conducted 05/06/24.</p>
+<p>Personnel reported no visible anomalies.</p>
+<p>Three devices lost synchronized time for 11 seconds.</p>
+
+<div class="divider"></div>
+
+<p>Subjective report (unverified):</p>
+<p>“The location appeared occupied before arrival.”</p>
+
+<div class="divider"></div>
+
+<p class="meta">
+ADDITIONAL NOTES:
+<br>• Cellular signal fluctuation recorded.
+<br>• No source interference identified.
+<br>• Timestamp discrepancy present in metadata.
+<br>• File modification logged prior to creation.
+</p>
+
+<script>
+
+/* Track visits */
+let visits = parseInt(localStorage.getItem("file05Visits") || "0");
+visits++;
+localStorage.setItem("file05Visits", visits);
+
+/* After 3 visits, replace entire page */
+if (visits >= 3) {
+    document.body.innerHTML = `
+        <div style="display:flex;align-items:center;justify-content:center;height:100vh;font-size:1.5em;text-align:center;">
+            that was a bad idea, retry
+        </div>
+    `;
+} else {
+
+    const municipality = document.getElementById("municipality");
+    const address = document.getElementById("address");
+
+    /* Municipality flickers between visible and redacted */
+    setInterval(() => {
+        if (Math.random() < 0.5) {
+            municipality.textContent = "██████████████";
+        } else {
+            municipality.textContent = "Chula Vista, CA";
+        }
+    }, 2000);
+
+    /* Street address sometimes becomes warning */
+    setInterval(() => {
+        const rand = Math.random();
+
+        if (rand < 0.25) {
+            address.classList.remove("redacted");
+            address.textContent = "2399 Fairway Oaks Drive";
+        } else {
+            address.classList.add("redacted");
+            address.textContent = "████████████████████████";
+        }
+
+    }, 3000);
+}
+
+</script>
+
+</body>
+</html>
