@@ -9,6 +9,7 @@
             color: #e0e0e0;
             font-family: "IBM Plex Mono", monospace;
             padding: 40px;
+            transition: background-color 1.5s ease;
         }
         h1 {
             color: red;
@@ -37,13 +38,21 @@
         .flicker {
             animation: flicker 7s infinite;
         }
+
+        .unstable {
+            background-color: #050505;
+        }
+
+        .alert {
+            color: #ff4444;
+        }
     </style>
 </head>
-<body>
+<body id="page">
 
-<h1>INCIDENT ARCHIVE</h1>
+<h1 id="archiveTitle">INCIDENT ARCHIVE</h1>
 
-<p>CASE ID: 050324</p>
+<p id="caseID">CASE ID: 050324</p>
 <p>STATUS: PARTIALLY DECLASSIFIED</p>
 <p>REDACTIONS: ███████████</p>
 
@@ -59,48 +68,50 @@
 
 <h2>FILES</h2>
 
-<ul>
-    <li>
-        <a href="initial-report.pdf" target="_blank">
-            FILE 01 – INITIAL REPORT
-        </a>
-    </li>
-    <li style="margin-left: 15px;">
-        <a href="file-02.pdf" target="_blank">
-            FILE 02 – INTERNAL CORRESPONDENCE (LEAKED COPY)
-        </a>
-    </li>
-    <li style="margin-left: 15px;">
-        <a href="file-03.html" target="_blank">
-            FILE 03 – PERCEPTION VARIANCE REPORT
-        </a>
-    </li>
-    <li style="margin-left: 30px;">
-        <a href="file-04.html" target="_blank">
-            FILE 04 – VIDEO RECOVERY LOG
-        </a>
-    </li>
-    <li style="margin-left: 45px;">
-        <a href="file-05.html" target="_blank">
-            FILE 05 – SITE CORRELATION REPORT
-        </a>
-    </li>
+<ul id="fileList">
+    <li><a href="initial-report.pdf" target="_blank">FILE 01 – INITIAL REPORT</a></li>
+    <li style="margin-left: 15px;"><a href="file-02.pdf" target="_blank">FILE 02 – INTERNAL CORRESPONDENCE (LEAKED COPY)</a></li>
+    <li style="margin-left: 15px;"><a href="file-03.html" target="_blank">FILE 03 – PERCEPTION VARIANCE REPORT</a></li>
+    <li style="margin-left: 30px;"><a href="file-04.html" target="_blank">FILE 04 – VIDEO RECOVERY LOG</a></li>
+    <li style="margin-left: 45px;"><a href="file-05.html" target="_blank">FILE 05 – SITE CORRELATION REPORT</a></li>
+    <li style="margin-left: 60px;"><a href="file-06.html" target="_blank">FILE 06 – ARCHIVE INTEGRITY AUDIT</a></li>
 </ul>
 
 <script>
-let intensity = 0.12;
-let accessed = false;
 
+let intensity = 0.12;
+let unstable = false;
+
+/* File 04 reaction */
 if (localStorage.getItem("reviewedFile04") === "true") {
     intensity = 0.35;
-    accessed = true;
+    document.getElementById("access").textContent = "ARCHIVE ACCESSED.";
 }
 
-const accessText = document.getElementById("access");
-if (accessed && accessText) {
-    accessText.textContent = "ARCHIVE ACCESSED.";
+/* File 06 reaction */
+if (localStorage.getItem("reviewedFile06") === "true") {
+    unstable = true;
+    intensity = 0.6;
+
+    document.getElementById("archiveTitle").textContent = "ARCHIVE STATE: UNSTABLE";
+    document.getElementById("archiveTitle").classList.add("alert");
+
+    document.getElementById("caseID").textContent = "CASE ID: 14:07";
+
+    document.getElementById("page").classList.add("unstable");
+
+    const now = new Date();
+    document.getElementById("timestamp").textContent =
+        "Last Updated: " + now.toLocaleTimeString("en-US", { hour12: false });
+
+    const list = document.getElementById("fileList");
+    const items = Array.from(list.children);
+    items.reverse();
+    list.innerHTML = "";
+    items.forEach(item => list.appendChild(item));
 }
 
+/* Glitch distortion */
 setInterval(() => {
     const access = document.getElementById("access");
     if (access && Math.random() < intensity) {
@@ -120,6 +131,7 @@ setInterval(() => {
         }, 180);
     }
 }, 5000);
+
 </script>
 
 </body>
