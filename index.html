@@ -75,9 +75,40 @@
     <li style="margin-left: 30px;"><a href="file-04.html" target="_blank">FILE 04 – VIDEO RECOVERY LOG</a></li>
     <li style="margin-left: 45px;"><a href="file-05.html" target="_blank">FILE 05 – SITE CORRELATION REPORT</a></li>
     <li style="margin-left: 60px;"><a href="file-06.html" target="_blank">FILE 06 – ARCHIVE INTEGRITY AUDIT</a></li>
+    <li style="margin-left: 75px;"><a href="file-07.html" target="_blank">FILE 07 – RECURSIVE EVENT MODEL</a></li>
+
 </ul>
 
 <script>
+
+    /* File 07 reaction */
+if (localStorage.getItem("reviewedFile07") === "true") {
+
+    document.title = "14:07";
+
+    // Freeze timestamp
+    const ts = document.getElementById("timestamp");
+    if (ts) {
+        ts.textContent = "Last Updated: 14:07";
+    }
+
+    // Slow upward drift
+    let offset = 0;
+    setInterval(() => {
+        offset -= 0.2;
+        document.body.style.transform = `translateY(${offset}px)`;
+    }, 100);
+
+    // Random redaction injection
+    setInterval(() => {
+        const elements = document.querySelectorAll("p, a");
+        const random = elements[Math.floor(Math.random() * elements.length)];
+        if (random && Math.random() < 0.2) {
+            random.textContent = "████████";
+        }
+    }, 4000);
+}
+
 
 let intensity = 0.12;
 let unstable = false;
