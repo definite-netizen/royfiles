@@ -87,13 +87,12 @@
 let intensity = 0.12;
 
 if (localStorage.getItem("reviewedFile04") === "true") {
-    intensity = 0.35;  // glitch frequency increases
+    intensity = 0.35;
 }
 
-/* Rare letter spacing distortion */
 setInterval(() => {
     const access = document.getElementById("access");
-    if (Math.random() < intensity) {
+    if (access && Math.random() < intensity) {
         access.style.letterSpacing = "3px";
         setTimeout(() => {
             access.style.letterSpacing = "normal";
@@ -101,10 +100,9 @@ setInterval(() => {
     }
 }, 4000);
 
-/* Timestamp mutation */
 setInterval(() => {
     const ts = document.getElementById("timestamp");
-    if (Math.random() < intensity) {
+    if (ts && Math.random() < intensity) {
         ts.textContent = "Last Updated: May 3, 2024 – 14:07:03";
         setTimeout(() => {
             ts.textContent = "Last Updated: May 3, 2024 – 14:07";
