@@ -84,10 +84,16 @@
 </ul>
 
 <script>
+let intensity = 0.12;
+
+if (localStorage.getItem("reviewedFile04") === "true") {
+    intensity = 0.35;  // glitch frequency increases
+}
+
 /* Rare letter spacing distortion */
 setInterval(() => {
     const access = document.getElementById("access");
-    if (Math.random() < 0.18) {
+    if (Math.random() < intensity) {
         access.style.letterSpacing = "3px";
         setTimeout(() => {
             access.style.letterSpacing = "normal";
@@ -95,10 +101,10 @@ setInterval(() => {
     }
 }, 4000);
 
-/* Very rare timestamp mutation */
+/* Timestamp mutation */
 setInterval(() => {
     const ts = document.getElementById("timestamp");
-    if (Math.random() < 0.12) {
+    if (Math.random() < intensity) {
         ts.textContent = "Last Updated: May 3, 2024 – 14:07:03";
         setTimeout(() => {
             ts.textContent = "Last Updated: May 3, 2024 – 14:07";
