@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FILE 06 – ARCHIVE INTEGRITY AUDIT</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0b0b0b;
+            color: #e0e0e0;
+            font-family: "IBM Plex Mono", monospace;
+            padding: 40px;
+        }
+        h1 {
+            color: red;
+            letter-spacing: 2px;
+        }
+        .meta {
+            color: #9a9a9a;
+            font-size: 0.9em;
+        }
+        .divider {
+            margin: 30px 0;
+            border-top: 1px solid #333;
+        }
+        .warning {
+            color: #ff4444;
+        }
+    </style>
+</head>
+<body>
+
+<h1>FILE 06 – ARCHIVE INTEGRITY AUDIT</h1>
+
+<p class="meta">CASE ID: 050324-F</p>
+<p class="meta">STATUS: INTERNAL REVIEW</p>
+<p class="meta">SYSTEM: ARCHIVE NODE 01</p>
+
+<div class="divider"></div>
+
+<p>Archive constructed in response to anomalous activity detected 05/03/24 – 14:07.</p>
+<p>Purpose: containment and documentation.</p>
+
+<div class="divider"></div>
+
+<p>Integrity scan initiated.</p>
+<p>No external intrusion detected.</p>
+<p id="session">No active session detected.</p>
+
+<div class="divider"></div>
+
+<p>File modification timeline:</p>
+<p>FILE 01 – Modified: 05/03/24 – 13:59</p>
+<p>FILE 02 – Modified: 05/03/24 – 14:01</p>
+<p>FILE 03 – Modified: 05/03/24 – 14:05</p>
+<p>FILE 04 – Modified: 05/03/24 – 14:07</p>
+<p>FILE 05 – Modified: 05/03/24 – 14:07</p>
+<p id="selfMod">FILE 06 – Modified: 05/03/24 – 14:07</p>
+
+<div class="divider"></div>
+
+<p>Archive creation timestamp:</p>
+<p class="warning">05/03/24 – 14:07</p>
+
+<div class="divider"></div>
+
+<p>Earliest recorded access:</p>
+<p id="accessTime">05/03/24 – 13:52</p>
+
+<div class="divider"></div>
+
+<p>Origin of modification:</p>
+<p>Local.</p>
+
+<div class="divider"></div>
+
+<p class="meta">
+ADDITIONAL NOTES:
+<br>• Archive node reports no administrator account.
+<br>• Changes attributed to user: ███████
+<br>• User does not exist in system registry.
+<br>• Files appear to predate their own creation.
+</p>
+
+<script>
+
+/* Detect current session */
+document.getElementById("session").textContent = "Current session detected.";
+
+/* Live update earliest access time to visitor's local time */
+const now = new Date();
+const formattedTime =
+    now.toLocaleDateString("en-US", { month: "2-digit", day: "2-digit", year: "2-digit" })
+    + " – " +
+    now.toLocaleTimeString("en-US", { hour12: false });
+
+document.getElementById("accessTime").textContent = formattedTime;
+
+/* Mark FILE 06 as modified when opened */
+document.getElementById("selfMod").textContent =
+    "FILE 06 – Modified: " + formattedTime;
+
+</script>
+
+</body>
+</html>
